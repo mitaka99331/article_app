@@ -1,0 +1,22 @@
+{% extends 'home.html.twig' %}
+
+{% block title %} Article {% endblock %}
+
+{% block content %}
+    <div class="card text-dark bg-light mb-3">
+        <div class="card-header d-flex justify-content-between">
+            <h3>Article</h3>
+            <a class="btn btn-danger" href="{{ path('list_articles') }}" role="button"><< Back</a>
+        </div>
+
+        <div class="card">
+            <h1 class="card-title m-5 text-center">{{ article.getName }}</h1>
+            <img src="{{asset(article.getImage) }}" class="rounded mx-auto d-block w-75" alt="Article image">
+            <div class="card-body text-center">
+                <p class="card-text">{{ article.getSummary  }}</p>
+                <p class="card-text">{{ article.getDescription  }}</p>
+                <p class="card-text"><small class="text-muted">Date: {{ article.getDate|date('H:i d-m-Y', "Europe/Paris") }}</small></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

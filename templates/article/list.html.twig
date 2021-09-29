@@ -1,0 +1,65 @@
+{% extends 'home.html.twig' %}
+
+{% block title %} View Articles {% endblock %}
+
+{% block content %}
+    <div class="card text-dark bg-light mb-3">
+        <div class="card-header d-flex justify-content-between">
+            <h3>Articles</h3>
+            <a class="btn btn-primary" href="{{ path('create_article') }}" role="button">+ New</a>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-2 bg-light">
+                    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100 mt-3">
+                        <ul class="list-unstyled ps-0">
+                            <h4>Filter by category</h4>
+                            <div class="btn-group-vertical w-100">
+                                {% for category in categories %}
+                                    <li  class="btn btn-outline-primary"><a style="color: black" href="{{ path('list_articles', {category: category.getId}) }}">{{ category.getName }}</a></li>
+                                {% endfor %}
+
+                                <li class="btn btn-outline-primary"><a style="color: black" href="{{ path('list_articles') }}">Remove Filter</a></li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-10">
+                    <table class="table  table-striped ">
+                        <thead>
+                        <tr>
+                            <th scope="col" style="width: 70%">Title</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for article in articles %}
+                            <tr>
+                                <td class="align-middle"><a href="{{ path('view_article', {article: article.getId}) }}"
+                                                            class="link-secondary">{{ article.getName }}</a></td>
+                                <td class="align-middle">{% if article.getCategory is empty %}Don't have category{% else %}{{ article.getCategory.getName }}{% endif %}</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a class="btn btn-primary"
+                                           href="{{ path('update_article', {article: article.getId}) }}"
+                                           role="button">Edit</a>
+                                        <a class="btn btn-danger"
+                                           href="{{ path('delete_article', {article: article.getId}) }}"
+                                           role="button">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
